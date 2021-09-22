@@ -26,17 +26,27 @@ def student_menu(difficultys, difficulty, difficult, SECONDS, time):
 answer math questions and earn rewards!""")
     print("To start select a difficulty")
     print("Remember you can enter x at any point to exit")
-    for difficult in difficultys:
         # Print out the students difficulty options
-        print(difficult.title())
-    while difficulty not in difficultys:
+    print("""Easy = 1
+Medium = 2
+Hard = 3""")
+    while True:
         # Ensure they have entered a valid option
         difficulty = input("What difficulty would you like?: ")
-        difficulty = difficulty.lower()
         if difficulty == "x":
             # Redirect the student to the main menu if x is entered
             exit(SECONDS, time)
             break
+        try:
+            # Attempt to turn their answer into an int
+            difficulty = int(difficulty)
+        except ValueError:
+            # If string is not an int this will trigger
+            print("Please enter a number or x to exit")
+            continue
+        if difficulty == int(difficulty):
+            print("Yay")
+            main()
     
     
 
@@ -47,7 +57,7 @@ def main():
     difficult = ""
     choice = ""
     choices = ["t", "s", "teacher", "student"]
-    difficultys = ["easy", "medium", "hard"]
+    difficultys = ["1", "2", "3"]
     difficulty = ""
     print("Hello and welcome to Game Of Treasures")
     while choice not in choices:
