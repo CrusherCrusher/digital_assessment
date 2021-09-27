@@ -1,4 +1,3 @@
-
 ##
 # harriset_digital.py
 # Ethan Harris
@@ -6,9 +5,17 @@
 # Create a program that gives students math questions and offers
 # an uncertain reward
 
-def teacher_menu(SECONDS, time):
+def teacher_menu(SECONDS, time, teacher_choices, teacher_choice, MAIN_MENU):
+    """Direct the teacher to where they need to go"""
     print("Welcome to the teachers menu for Game Of Treasures!")
-    teacher_choice = input("""Would you like to """)
+    print("Remember you can enter x at any time to return to the main menu")
+    while teacher_choice not in teacher_choices:
+        teacher_choice = input("Would you like to add a question for your student(A) or see your students results(R)?")
+        teacher_choice = teacher_choice.lower()
+        print(teacher_choice)
+        if teacher_choice == MAIN_MENU:
+            exit(SECONDS, time)
+            
     
 
 def exit(SECONDS, time):
@@ -19,7 +26,7 @@ def exit(SECONDS, time):
     main()
     
 
-def student_menu(difficultys, difficulty, difficult, SECONDS, time):
+def student_menu(difficultys, difficulty, difficult, SECONDS, time, MAIN_MENU):
     """Introduce the student to the game and get them to choose
     the questions difficulty"""
     print("Welcome to the student menu")
@@ -34,7 +41,7 @@ Multiplication = 3""")
     while True:
         # Ensure they have entered a valid option
         difficulty = input("What difficulty would you like?: ")
-        if difficulty == "x":
+        if difficulty == MAIN_MENU:
             # Redirect the student to the main menu if x is entered
             exit(SECONDS, time)
             break
@@ -54,20 +61,23 @@ def main():
     """Define variables and direct the user to the appropriate menu"""
     import time
     SECONDS = 0.8
+    MAIN_MENU = "x"
     difficult = ""
     choice = ""
     choices = ["t", "s", "teacher", "student"]
     difficultys = ["1", "2", "3"]
     difficulty = ""
+    teacher_choice = ""
+    teacher_choices = ["a", "r"]
     print("Hello and welcome to Game Of Treasures")
     while choice not in choices:
         # Ensure they can only proceed if they choose one of the two options
         choice = input("Press T for teacher menu or S for student: ".lower())
     if choice == choices[1] or choice == choices[3]:
         # Redirect to the student menu
-        student_menu(difficultys, difficulty, difficult, SECONDS, time)
+        student_menu(difficultys, difficulty, difficult, SECONDS, time, MAIN_MENU)
     elif choice == choices[0] or choice == choices[2]:
-        teacher_menu(SECONDS, time)
+        teacher_menu(SECONDS, time, teacher_choices, teacher_choice, MAIN_MENU)
 
 
 if __name__=="__main__":
