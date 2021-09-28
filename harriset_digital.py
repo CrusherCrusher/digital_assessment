@@ -8,9 +8,12 @@
 def teacher_menu(SECONDS, time, teacher_choices, teacher_choice, MAIN_MENU):
     """Direct the teacher to where they need to go"""
     print("Welcome to the teachers menu for Game Of Treasures!")
+    print(""" """)
     print("Remember you can enter x at any time to return to the main menu")
+    print(" ")
     while teacher_choice not in teacher_choices:
-        teacher_choice = input("Would you like to add a question for your student(A) or see your students results(R)?")
+        teacher_choice = input("""Would you like to add a question for your student(1)
+or see your students results(2)?: """)
         teacher_choice = teacher_choice.lower()
         print(teacher_choice)
         if teacher_choice == MAIN_MENU:
@@ -20,26 +23,35 @@ def teacher_menu(SECONDS, time, teacher_choices, teacher_choice, MAIN_MENU):
 
 def exit(SECONDS, time):
     """Redirect the user to the main menu"""
+    print(" ")
     print("Returning you to the main menu now")
     # Make the experience more natural by adding a small delay
     time.sleep(SECONDS)
+    print(" ")
     main()
     
 
 def student_menu(difficultys, difficulty, difficult, SECONDS, time, MAIN_MENU):
     """Introduce the student to the game and get them to choose
     the questions difficulty"""
+    print(" ")
+    print(" ")
     print("Welcome to the student menu")
+    print(" ")
     print("""Game of treasures is an amazingly fun math game where you
 answer math questions and earn rewards!""")
+    print(" ")
     print("To start select a difficulty")
+    print(" ")
     print("Remember you can enter x at any point to exit")
+    print(" ")
         # Print out the students difficulty options
     print("""Addition = 1
 Subtraction = 2
 Multiplication = 3""")
     while True:
         # Ensure they have entered a valid option
+        print(" ")
         difficulty = input("What difficulty would you like?: ")
         if difficulty == MAIN_MENU:
             # Redirect the student to the main menu if x is entered
@@ -50,6 +62,7 @@ Multiplication = 3""")
             difficulty = int(difficulty)
         except ValueError:
             # If string is not an int this will trigger
+            print(" ")
             print("Please enter a number or x to exit")
             continue
         if difficulty == int(difficulty):
