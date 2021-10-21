@@ -5,7 +5,16 @@
 # Create a program that gives students math questions and offers
 # an uncertain reward
 
-def teacher_menu(SECONDS, time, teacher_choices, teacher_choice, MAIN_MENU):
+def addition_questions(difficultys, difficulty, difficult, SECONDS, time, MAIN_MENU, random, coins):
+    """Ask the student a series of addition questions"""
+    print("Welcome to the addition question menu")
+    print("")
+    if coins == 1:
+        print("You currently have {} coin".format(coins))
+    else:
+        print("You currently have {} coins".format(coins))
+
+def teacher_menu(SECONDS, time, teacher_choices, teacher_choice, MAIN_MENU, coins):
     """Direct the teacher to where they need to go"""
     print("Welcome to the teachers menu for Game Of Treasures!")
     print(""" """)
@@ -31,7 +40,7 @@ def exit(SECONDS, time):
     main()
     
 
-def student_menu(difficultys, difficulty, difficult, SECONDS, time, MAIN_MENU):
+def student_menu(difficultys, difficulty, difficult, SECONDS, time, MAIN_MENU, random, coins):
     """Introduce the student to the game and get them to choose
     the questions difficulty"""
     print(" ")
@@ -49,7 +58,8 @@ answer math questions and earn rewards!""")
     print("""Addition = 1
 Subtraction = 2
 Multiplication = 3""")
-    while True:
+    again = True
+    while again == True:
         # Ensure they have entered a valid option
         print(" ")
         difficulty = input("What difficulty would you like?: ")
@@ -65,32 +75,46 @@ Multiplication = 3""")
             print(" ")
             print("Please enter a number or x to exit")
             continue
-        if difficulty == int(difficulty):
-            print("Yay")
-            main()
+        if difficulty == int(difficulty) and difficulty in difficultys:
+            print("")
+            print("Directing you to your selected question type now!")
+            time.sleep(SECONDS)
+            again = False
+        elif difficulty not in difficultys:
+            print("Please enter 1, 2 or 3 to continue or x to exit")
+    if difficulty == difficultys[0]:
+        print("yay")
+        addition_questions(difficultys, difficulty, difficult, SECONDS, time, MAIN_MENU, random, coins)
+        print("yay")
+    if difficulty == difficultys[1]:
+        subtraction_questions(difficultys, difficulty, difficult, SECONDS, time, MAIN_MENU)
+    elif difficulty == difficultys[2]:
+        multiplication_questions(difficultys, difficulty, difficult, SECONDS, time, MAIN_MENU)
     
 
 def main():
     """Define variables and direct the user to the appropriate menu"""
     import time
+    import random
     SECONDS = 0.8
     MAIN_MENU = "x"
     difficult = ""
     choice = ""
     choices = ["t", "s", "teacher", "student"]
-    difficultys = ["1", "2", "3"]
+    difficultys = [1, 2, 3]
     difficulty = ""
     teacher_choice = ""
     teacher_choices = ["a", "r"]
+    coins = 0
     print("Hello and welcome to Game Of Treasures")
     while choice not in choices:
         # Ensure they can only proceed if they choose one of the two options
         choice = input("Press T for teacher menu or S for student: ".lower())
     if choice == choices[1] or choice == choices[3]:
         # Redirect to the student menu
-        student_menu(difficultys, difficulty, difficult, SECONDS, time, MAIN_MENU)
+        student_menu(difficultys, difficulty, difficult, SECONDS, time, MAIN_MENU, random, coins)
     elif choice == choices[0] or choice == choices[2]:
-        teacher_menu(SECONDS, time, teacher_choices, teacher_choice, MAIN_MENU)
+        teacher_menu(SECONDS, time, teacher_choices, teacher_choice, MAIN_MENU, coins)
 
 
 if __name__=="__main__":
